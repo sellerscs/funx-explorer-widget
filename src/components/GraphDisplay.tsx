@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceLine, Label } from "recharts";
 import { FunctionData } from "@/data/functionData";
@@ -147,7 +148,8 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               value: 'x', 
               position: 'insideBottomRight', 
               offset: -5 
-            }} 
+            }}
+            ticks={Array.from({length: max - min + 1}, (_, i) => min + i)}
           />
           <YAxis 
             tickFormatter={tickFormatter}
@@ -156,7 +158,8 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               angle: -90, 
               position: 'insideLeft',
               style: { textAnchor: 'middle' } 
-            }} 
+            }}
+            ticks={Array.from({length: 21}, (_, i) => i - 10)}
           />
           <Tooltip 
             formatter={(value: any) => [Number(value).toFixed(2), 'f(x)']}
@@ -240,3 +243,4 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
 };
 
 export default GraphDisplay;
+
