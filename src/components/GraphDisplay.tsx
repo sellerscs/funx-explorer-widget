@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceLine, Label } from "recharts";
 import { FunctionData } from "@/data/functionData";
+import { ArrowRight } from "lucide-react";
 
 interface GraphDisplayProps {
   functionData: FunctionData;
@@ -66,6 +67,37 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
 
   const isMobile = windowWidth < 768;
 
+  // Custom intercept label components with arrows
+  const XInterceptLabel = ({ x, y, value }: any) => (
+    <g transform={`translate(${x},${y})`}>
+      <text x={15} y={-15} fill="#FF5722" textAnchor="middle" dominantBaseline="middle">
+        x-intercept
+      </text>
+      <path 
+        d="M 15,-15 L 0,0" 
+        stroke="#FF5722" 
+        strokeWidth={1.5} 
+        fill="none" 
+        markerEnd="url(#arrowhead)" 
+      />
+    </g>
+  );
+
+  const YInterceptLabel = ({ x, y, value }: any) => (
+    <g transform={`translate(${x},${y})`}>
+      <text x={-15} y={15} fill="#4CAF50" textAnchor="middle" dominantBaseline="middle">
+        y-intercept
+      </text>
+      <path 
+        d="M -15,15 L 0,0" 
+        stroke="#4CAF50" 
+        strokeWidth={1.5} 
+        fill="none" 
+        markerEnd="url(#arrowhead)" 
+      />
+    </g>
+  );
+
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6 w-full h-[400px]">
       <div className="text-center font-medium mb-4 text-gray-700">
@@ -76,6 +108,20 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
           data={data}
           margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
         >
+          {/* Define arrow marker for the intercept labels */}
+          <defs>
+            <marker
+              id="arrowhead"
+              markerWidth="10"
+              markerHeight="7"
+              refX="0"
+              refY="3.5"
+              orient="auto"
+            >
+              <polygon points="0 0, 10 3.5, 0 7" fill="#9b87f5" />
+            </marker>
+          </defs>
+          
           <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
           <XAxis 
             dataKey="x" 
@@ -115,32 +161,25 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
             connectNulls
           />
           
-          {/* Show intercepts if enabled */}
+          {/* Show x-intercepts if enabled */}
           {showIntercepts && functionData.xIntercepts !== "None" && 
             id !== "reciprocal" && id !== "greatestInteger" && (
             <ReferenceLine
               x={id === "logarithmic" ? 1 : 0}
               stroke="#FF5722"
               strokeDasharray="5 5"
-              label={!isMobile ? {
-                value: "x-intercept",
-                position: "insideBottomRight",
-                fill: "#FF5722",
-              } : undefined}
+              label={!isMobile ? <XInterceptLabel /> : undefined}
             />
           )}
           
+          {/* Show y-intercepts if enabled */}
           {showIntercepts && functionData.yIntercept !== "None" && 
             id !== "reciprocal" && id !== "logarithmic" && (
             <ReferenceLine
               y={id === "exponential" ? 1 : 0}
               stroke="#4CAF50"
               strokeDasharray="5 5"
-              label={!isMobile ? {
-                value: "y-intercept",
-                position: "insideLeftBottom",
-                fill: "#4CAF50",
-              } : undefined}
+              label={!isMobile ? <YInterceptLabel /> : undefined}
             />
           )}
           
@@ -153,7 +192,7 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               strokeDasharray="5 5"
               label={!isMobile ? {
                 value: "Min (0,0)",
-                position: "insideTopRight",
+                position: "insideBottom",
                 fill: "#9C27B0",
               } : undefined}
             />
