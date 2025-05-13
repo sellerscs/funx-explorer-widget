@@ -142,17 +142,18 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
           <XAxis 
             dataKey="x" 
             type="number" 
-            domain={[min, max]}
+            domain={[-10, 10]}
             tickFormatter={tickFormatter}
             label={{ 
               value: 'x', 
               position: 'insideBottomRight', 
               offset: -5 
             }}
-            ticks={Array.from({length: max - min + 1}, (_, i) => min + i)}
+            ticks={Array.from({length: 21}, (_, i) => i - 10)}
           />
           <YAxis 
             tickFormatter={tickFormatter}
+            domain={[-10, 10]}
             label={{ 
               value: 'f(x)', 
               angle: -90, 
@@ -243,4 +244,3 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
 };
 
 export default GraphDisplay;
-
