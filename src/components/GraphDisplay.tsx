@@ -150,6 +150,10 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               offset: -5 
             }}
             ticks={Array.from({length: 21}, (_, i) => i - 10)}
+            axisLine={{ strokeWidth: 1.5 }}
+            tickLine={{ strokeWidth: 1 }}
+            tick={{ dy: 0 }}
+            tickSize={8}
           />
           <YAxis 
             tickFormatter={tickFormatter}
@@ -161,6 +165,10 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               style: { textAnchor: 'middle' } 
             }}
             ticks={Array.from({length: 21}, (_, i) => i - 10)}
+            axisLine={{ strokeWidth: 1.5 }}
+            tickLine={{ strokeWidth: 1 }}
+            tick={{ dx: 0 }}
+            tickSize={8}
           />
           <Tooltip 
             formatter={(value: any) => [Number(value).toFixed(2), 'f(x)']}
