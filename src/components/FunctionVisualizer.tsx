@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import ControlPanel from "./ControlPanel";
 import GraphDisplay from "./GraphDisplay";
-import QuestionPanel from "./QuestionPanel";
 import { FunctionType, getFunction } from "@/data/functionData";
 
 const FunctionVisualizer: React.FC = () => {
@@ -45,7 +44,6 @@ const FunctionVisualizer: React.FC = () => {
             showEndBehavior={showEndBehavior}
           />
           
-          <QuestionPanel functionData={functionData} />
         </div>
       </div>
     </div>
