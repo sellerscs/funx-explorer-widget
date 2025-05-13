@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, ReferenceLine, Label } from "recharts";
 import { FunctionData } from "@/data/functionData";
@@ -67,36 +66,52 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
 
   const isMobile = windowWidth < 768;
 
-  // Custom intercept label components with arrows
-  const XInterceptLabel = ({ x, y, value }: any) => (
-    <g transform={`translate(${x},${y})`}>
-      <text x={15} y={-15} fill="#FF5722" textAnchor="middle" dominantBaseline="middle">
-        x-intercept
-      </text>
-      <path 
-        d="M 15,-15 L 0,0" 
-        stroke="#FF5722" 
-        strokeWidth={1.5} 
-        fill="none" 
-        markerEnd="url(#arrowhead)" 
-      />
-    </g>
-  );
+  // Custom intercept label components with arrows - fixed positioning
+  const XInterceptLabel = ({ x, y, viewBox }: any) => {
+    // Position the label text to the right and above the intercept point
+    return (
+      <g>
+        <text 
+          x={viewBox.x + 15} 
+          y={viewBox.y - 15} 
+          fill="#FF5722" 
+          textAnchor="start"
+        >
+          x-intercept
+        </text>
+        <path 
+          d={`M ${viewBox.x + 15} ${viewBox.y - 10} L ${viewBox.x} ${viewBox.y}`} 
+          stroke="#FF5722" 
+          strokeWidth={1.5} 
+          fill="none" 
+          markerEnd="url(#arrowhead)" 
+        />
+      </g>
+    );
+  };
 
-  const YInterceptLabel = ({ x, y, value }: any) => (
-    <g transform={`translate(${x},${y})`}>
-      <text x={-15} y={15} fill="#4CAF50" textAnchor="middle" dominantBaseline="middle">
-        y-intercept
-      </text>
-      <path 
-        d="M -15,15 L 0,0" 
-        stroke="#4CAF50" 
-        strokeWidth={1.5} 
-        fill="none" 
-        markerEnd="url(#arrowhead)" 
-      />
-    </g>
-  );
+  const YInterceptLabel = ({ x, y, viewBox }: any) => {
+    // Position the label text to the left and above the intercept point
+    return (
+      <g>
+        <text 
+          x={viewBox.x - 15} 
+          y={viewBox.y - 15} 
+          fill="#4CAF50" 
+          textAnchor="end"
+        >
+          y-intercept
+        </text>
+        <path 
+          d={`M ${viewBox.x - 15} ${viewBox.y - 10} L ${viewBox.x} ${viewBox.y}`} 
+          stroke="#4CAF50" 
+          strokeWidth={1.5} 
+          fill="none" 
+          markerEnd="url(#arrowhead)" 
+        />
+      </g>
+    );
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-6 w-full h-[400px]">
@@ -114,7 +129,7 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               id="arrowhead"
               markerWidth="10"
               markerHeight="7"
-              refX="0"
+              refX="9"
               refY="3.5"
               orient="auto"
             >
@@ -169,6 +184,7 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               stroke="#FF5722"
               strokeDasharray="5 5"
               label={!isMobile ? <XInterceptLabel /> : undefined}
+              ifOverflow="extendDomain"
             />
           )}
           
@@ -180,6 +196,7 @@ const GraphDisplay: React.FC<GraphDisplayProps> = ({
               stroke="#4CAF50"
               strokeDasharray="5 5"
               label={!isMobile ? <YInterceptLabel /> : undefined}
+              ifOverflow="extendDomain"
             />
           )}
           
