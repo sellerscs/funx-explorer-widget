@@ -115,7 +115,7 @@ export const functions: FunctionData[] = [
     extrema: "Minimum at (0, 0)",
     increasingIntervals: "(0, ∞)",
     decreasingIntervals: "(-∞, 0)",
-    endBehavior: "As x → ±∞, f(x) → ∞",
+    endBehavior: "As x → ∞, f(x) → ∞; As x → -∞, f(x) → ∞",
   },
   {
     id: "exponential",
