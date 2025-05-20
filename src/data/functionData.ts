@@ -179,6 +179,70 @@ export const functions: FunctionData[] = [
   }
 ];
 
+// Add these types and data at the end of your functionData.ts file
+export type TutorialFunction = {
+  id: string;
+  name: string;
+  expression: string;
+  func: (x: number) => number;
+  leftEndBehavior: { x: string; fx: string };
+  rightEndBehavior: { x: string; fx: string };
+  degree: number;
+  leading: number;
+};
+
+export const tutorialFunctions: TutorialFunction[] = [
+  {
+    id: "poly1",
+    name: "Polynomial Function 1",
+    expression: "f(x) = x³ - 2x² + 3x - 1",
+    func: (x: number) => Math.pow(x, 3) - 2 * Math.pow(x, 2) + 3 * x - 1,
+    leftEndBehavior: { x: "-∞", fx: "-∞" },
+    rightEndBehavior: { x: "∞", fx: "∞" },
+    degree: 3,
+    leading: 1
+  },
+  {
+    id: "poly2",
+    name: "Polynomial Function 2",
+    expression: "f(x) = -x⁴ + 3x² - 5",
+    func: (x: number) => -Math.pow(x, 4) + 3 * Math.pow(x, 2) - 5,
+    leftEndBehavior: { x: "-∞", fx: "-∞" },
+    rightEndBehavior: { x: "∞", fx: "-∞" },
+    degree: 4,
+    leading: -1
+  },
+  {
+    id: "poly3",
+    name: "Polynomial Function 3", 
+    expression: "f(x) = 2x⁴ - x² + 7",
+    func: (x: number) => 2 * Math.pow(x, 4) - Math.pow(x, 2) + 7,
+    leftEndBehavior: { x: "-∞", fx: "∞" },
+    rightEndBehavior: { x: "∞", fx: "∞" },
+    degree: 4,
+    leading: 2
+  },
+  {
+    id: "poly4",
+    name: "Polynomial Function 4",
+    expression: "f(x) = -x³ + 4x",
+    func: (x: number) => -Math.pow(x, 3) + 4 * x,
+    leftEndBehavior: { x: "-∞", fx: "∞" },
+    rightEndBehavior: { x: "∞", fx: "-∞" },
+    degree: 3,
+    leading: -1
+  },
+  {
+    id: "poly5",
+    name: "Polynomial Function 5",
+    expression: "f(x) = x⁵ - 4x³ + 2x",
+    func: (x: number) => Math.pow(x, 5) - 4 * Math.pow(x, 3) + 2 * x,
+    leftEndBehavior: { x: "-∞", fx: "-∞" },
+    rightEndBehavior: { x: "∞", fx: "∞" },
+    degree: 5,
+    leading: 1
+  }
+];
 export const getFunction = (id: FunctionType): FunctionData => {
   return functions.find(f => f.id === id) || functions[0];
 };
