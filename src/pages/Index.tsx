@@ -10,7 +10,7 @@ const Index = () => {
             Parent Function Explorer
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Visualize and analyze the behavior of the 10 basic parent functions in mathematics
+            Visualize and analyze the behavior of basic parent functions in mathematics
           </p>
         </header>
         
